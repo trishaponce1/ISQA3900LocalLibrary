@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.views.generic import RedirectView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-
+from django.core.mail import send_mail
+from django.contrib.auth.models import User
 # Create your views here.
 from .models import Book, Author, BookInstance, Genre
 from django.views import generic
