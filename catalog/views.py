@@ -1,12 +1,12 @@
-from django.shortcuts import render
-from django.views.generic import RedirectView
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 from django.core.mail import send_mail
+from django.http import request
 from django.contrib.auth.models import User
-# Create your views here.
-from .models import Book, Author, BookInstance, Genre
+from django.shortcuts import render
 from django.views import generic
+
+# Create your views here.
+from .models import Book, Author, BookInstance
 
 
 def index(request):
@@ -39,7 +39,8 @@ def index(request):
         request,
         'index.html',
         context={'num_books': num_books, 'num_instances': num_instances,
-                 'num_instances_available': num_instances_available, 'num_authors': num_authors, 'num_visits': num_visits}
+                 'num_instances_available': num_instances_available, 'num_authors': num_authors,
+                 'num_visits': num_visits}
     )
 
 
@@ -61,7 +62,7 @@ class AuthorDetailView(generic.DetailView):
     model = Author
 
 
-class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
+class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
     """Generic class-based view listing books on loan to current user."""
     model = BookInstance
     template_name = 'catalog/bookinstance_list_borrowed_user.html'
@@ -70,3 +71,12 @@ class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
     def get_queryset(self):
         return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
 
+
+# add send e-mail confirmation
+# set up the subject, message, and user’s email address
+
+subject = '{}, the email subject'.format
+message = 'this is the message "{}"'.format
+
+# user = request.user
+# user_email = user.email

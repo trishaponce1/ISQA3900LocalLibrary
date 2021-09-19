@@ -130,9 +130,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
 
+# Add to test email:
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'trisha.unolearneracct@gmail.com'
+EMAIL_HOST_USER = 'trisha.unolearneracct'
 EMAIL_HOST_PASSWORD = 'maverick2021!'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
